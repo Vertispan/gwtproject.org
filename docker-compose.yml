@@ -1,0 +1,31 @@
+version: '3.6'
+
+# make these services available to the network called "web"
+networks:
+  default:
+    name: ${NETWORK}_default
+
+services:
+  www:
+    build:
+      context: www
+      args:
+        - NGINX_TAG=${NGINX_TAG}
+    ports: #TODO before merging this make sure this works as expected instead of ports
+      - '80'
+    environment:
+      - VIRTUAL_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
+      - LETSENCRYPT_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
+  static-samples:
+    # Consider updating this to support dynamic samples in the future
+    build:
+      context: static-samples
+      args:
+        - NGINX_TAG=${NGINX_TAG}
+        - GWT_DOWNLOAD=https://storage.googleapis.com/gwt-releases/gwt-2.9.0.zip
+        - GWT_VERSION=2.9.0
+    ports:
+      - '80'
+    environment:
+      - VIRTUAL_HOST=samples.${BASE_DOMAIN}
+      - LETSENCRYPT_HOST=samples.${BASE_DOMAIN}
