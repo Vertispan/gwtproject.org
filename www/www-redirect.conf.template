@@ -1,0 +1,8 @@
+server {
+    listen 80;
+
+    # If a request comes with the base domain, unprefixed by "www.", redirect to add it.
+    server_name ${BASE_DOMAIN};
+
+    return 301 https://www.${BASE_DOMAIN}$request_uri;
+}

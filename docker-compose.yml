@@ -14,6 +14,7 @@ services:
     ports: #TODO before merging this make sure this works as expected instead of ports
       - '80'
     environment:
+      - BASE_DOMAIN=${BASE_DOMAIN}
       - VIRTUAL_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
       - HSTS=off
       - LETSENCRYPT_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}

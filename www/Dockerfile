@@ -33,3 +33,11 @@ RUN set -eux; \
 RUN mv /gwt-site-master/target/generated-site/* /usr/share/nginx/html/
 
 RUN mv /gwt-site-webapp/target/gwt-site-webapp-2.0-SNAPSHOT/gwtproject /gwt-site-webapp/target/gwt-site-webapp-2.0-SNAPSHOT/src /usr/share/nginx/html/
+
+# Redirect "gwtproject.org/..." requests to "www.gwtproject.org/...". This will consume the
+# BASE_DOMAIN env var automatically, a feature added in nginx 1.19. The file starts in the
+# /etc/nginx/templates directory, and is copied to /etc/nginx/conf.d/ after env vars are
+# applied.
+ARG BASE_DOMAIN
+ENV BASE_DOMAIN ${BASE_DOMAIN}
+COPY www-redirect.conf.template /etc/nginx/templates/
