@@ -15,6 +15,7 @@ services:
       - '80'
     environment:
       - VIRTUAL_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
+      - HSTS=off
       - LETSENCRYPT_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
   static-samples:
     # Consider updating this to support dynamic samples in the future
@@ -28,4 +29,5 @@ services:
       - '80'
     environment:
       - VIRTUAL_HOST=samples.${BASE_DOMAIN}
+      - HSTS=off
       - LETSENCRYPT_HOST=samples.${BASE_DOMAIN}

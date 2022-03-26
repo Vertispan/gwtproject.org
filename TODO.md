@@ -8,3 +8,4 @@
  [ ] Update this repository to use those artifacts instead of building from scratch
  [ ] Consolidate Dockerfile RUN steps to reduce image size, possibly share intermediate
      images.
+ [ ] Reinstate HSTS
