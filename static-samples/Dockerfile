@@ -20,7 +20,7 @@ RUN unzip /gwt.zip -d /gwt; \
 RUN mv gwt/gwt-${GWT_VERSION}/samples/Showcase/war /usr/share/nginx/html/samples/Showcase/; \
     mv gwt/gwt-${GWT_VERSION}/samples/Mail/war /usr/share/nginx/html/samples/Mail/;
 
-# Add an HTML file to redirect to the most commonly used samples, the showcase, until we \
+# Add an HTML file to redirect to the most commonly used samples, the showcase, until we
 # decide to have a proper landing/list page
 ADD index.html /usr/share/nginx/html/
 ADD index.html /usr/share/nginx/html/samples/
