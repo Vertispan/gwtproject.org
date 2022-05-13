@@ -41,3 +41,7 @@ RUN mv /gwt-site-webapp/target/gwt-site-webapp-2.0-SNAPSHOT/gwtproject /gwt-site
 ARG BASE_DOMAIN
 ENV BASE_DOMAIN ${BASE_DOMAIN}
 COPY www-redirect.conf.template /etc/nginx/templates/
+
+# Replace default.conf with our own copy, which will allow for files to not end in .html,
+# and redirect the client to the expected url.
+COPY default.conf /etc/nginx/conf.d/
