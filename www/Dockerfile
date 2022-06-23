@@ -19,20 +19,20 @@ RUN set -eux; \
 RUN set -eux; \
     apt-get install -y git
 
-RUN set -eux; \
-    git clone https://gwt.googlesource.com/gwt-site-webapp
+ADD https://github.com/gwtproject/gwt-site-webapp/archive/refs/heads/main.zip /
 
 ADD https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u322-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz /openjdk.tar.gz
 
 RUN set -eux; \
     tar xf openjdk.tar.gz; \
     export JAVA_HOME=/jdk8u322-b06; \
-    cd gwt-site-webapp; \
+    unzip main.zip; \
+    cd gwt-site-webapp-main; \
     mvn package;
 
 RUN mv /gwt-site-master/target/generated-site/* /usr/share/nginx/html/
 
-RUN mv /gwt-site-webapp/target/gwt-site-webapp-2.0-SNAPSHOT/gwtproject /gwt-site-webapp/target/gwt-site-webapp-2.0-SNAPSHOT/src /usr/share/nginx/html/
+RUN mv /gwt-site-webapp-main/target/gwt-site-webapp-2.0-SNAPSHOT/gwtproject /gwt-site-webapp-main/target/gwt-site-webapp-2.0-SNAPSHOT/src /usr/share/nginx/html/
 
 # Redirect "gwtproject.org/..." requests to "www.gwtproject.org/...". This will consume the
 # BASE_DOMAIN env var automatically, a feature added in nginx 1.19. The file starts in the
