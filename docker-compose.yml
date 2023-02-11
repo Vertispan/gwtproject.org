@@ -11,7 +11,7 @@ services:
       context: www
       args:
         - NGINX_TAG=${NGINX_TAG}
-    ports: #TODO before merging this make sure this works as expected instead of ports
+    ports:
       - '80'
     environment:
       - BASE_DOMAIN=${BASE_DOMAIN}
@@ -32,3 +32,15 @@ services:
       - VIRTUAL_HOST=samples.${BASE_DOMAIN}
       - HSTS=off
       - LETSENCRYPT_HOST=samples.${BASE_DOMAIN}
+  plugins:
+    image: nginx:${NGINX_TAG}
+    ports:
+      - '80'
+    volumes:
+      # Modify the existing default.conf file to allow directory listing for plugin versions
+      - ./plugins/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./plugins/content:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=plugins.${BASE_DOMAIN}
+      - HSTS=off
+      - LETSENCRYPT_HOST=plugins.${BASE_DOMAIN}
