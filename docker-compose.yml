@@ -32,3 +32,13 @@ services:
       - VIRTUAL_HOST=samples.${BASE_DOMAIN}
       - HSTS=off
       - LETSENCRYPT_HOST=samples.${BASE_DOMAIN}
+  plugins:
+    image: nginx:${NGINX_TAG}
+    ports:
+      - 80
+    volumes:
+      - ./plugins:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=plugins.${BASE_DOMAIN}
+      - HSTS=off
+      - LETSENCRYPT_HOST=plugins.${BASE_DOMAIN}
