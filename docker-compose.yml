@@ -44,3 +44,17 @@ services:
       - VIRTUAL_HOST=plugins.${BASE_DOMAIN}
       - HSTS=off
       - LETSENCRYPT_HOST=plugins.${BASE_DOMAIN}
+  gwt-plugin-eclipse-nightly-update-webhook:
+    image: almir/webhook
+    volumes:
+      - ./plugins/hooks.json:/etc/webhook/hooks.json:ro
+      - ./plugins/hook-deploy.sh:/hook-deploy.sh:ro
+      - ./plugins/content/eclipse/gwt-eclipse-plugin/nightly:/nightly/
+    expose:
+      - '9000'
+    environment:
+      - VIRTUAL_HOST=webhook.plugins.${BASE_DOMAIN}
+      - LETSENCRYPT_HOST=webhook.plugins.${BASE_DOMAIN}
+#      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET}
+    command: ["-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload", "-template"]
