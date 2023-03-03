@@ -27,7 +27,7 @@
             "parameter":
             {
               "source": "payload",
-              "name": "branches.0.name"
+              "name": "check_suite.head_branch"
             }
           }
         },
@@ -39,7 +39,7 @@
             "parameter":
             {
               "source": "payload",
-              "name": "state"
+              "name": "check_suite.conclusion"
             }
           }
         }
