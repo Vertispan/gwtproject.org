@@ -45,7 +45,8 @@ services:
       - HSTS=off
       - LETSENCRYPT_HOST=plugins.${BASE_DOMAIN}
   gwt-plugin-eclipse-nightly-update-webhook:
-    image: almir/webhook
+    build:
+      context: webhook
     volumes:
       - ./plugins/hooks.json:/etc/webhook/hooks.json:ro
       - ./plugins/hook-deploy.sh:/hook-deploy.sh:ro
