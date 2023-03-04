@@ -2,5 +2,6 @@
 FROM almir/webhook
 
 # Add curl to our image
-RUN apk add curl \
+RUN set -eux; \
+    apk add curl; \
     rm -rf /var/cache/apk/*
