@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Show us commands, stop on errors, and fail on missing vars
 set -eux
@@ -14,6 +14,6 @@ curl -L -o repo.zip https://nightly.link/gwt-plugins/gwt-eclipse-plugin/workflow
 
 cd /nightly
 
-rm -rf *
+rm -rf ./*
 
 unzip /deploy/repo.zip
