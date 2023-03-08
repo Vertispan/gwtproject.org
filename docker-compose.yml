@@ -50,8 +50,8 @@ services:
     volumes:
       - ./plugins/hooks.json:/etc/webhook/hooks.json:ro
       - ./plugins/hook-deploy.sh:/hook-deploy.sh:ro
-      - ./plugins/content/eclipse/gwt-eclipse-plugin/nightly:/nightly/
-    expose:
+      - ./plugins/content/eclipse/gwt-eclipse-plugin:/gwt-eclipse-plugin/
+    ports:
       - '9000'
     environment:
       - VIRTUAL_HOST=webhook.plugins.${BASE_DOMAIN}
