@@ -1,0 +1,49 @@
+[
+  {
+    "id": "successful-deploy-nightly-workflow",
+    "execute-command": "/hook-deploy.sh",
+    "command-working-directory": "/",
+    "trigger-rule":
+    {
+      "and":
+      [
+        {
+          "match":
+          {
+            "type": "payload-hmac-sha256",
+            "secret": "{{ getenv "WEBHOOK_SECRET" }}",
+            "parameter":
+            {
+              "source": "header",
+              "name": "X-Hub-Signature-256"
+            }
+          }
+        },
+        {
+          "match":
+          {
+            "type": "value",
+            "value": "main",
+            "parameter":
+            {
+              "source": "payload",
+              "name": "check_suite.head_branch"
+            }
+          }
+        },
+        {
+          "match":
+          {
+            "type": "value",
+            "value": "success",
+            "parameter":
+            {
+              "source": "payload",
+              "name": "check_suite.conclusion"
+            }
+          }
+        }
+      ]
+    }
+  }
+]
