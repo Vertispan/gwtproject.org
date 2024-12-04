@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
-# Simple script to update and replace www content
+# Simple script to update and replace www content. Future revisions should pull javadoc
+# separately (from the latest release), and possible separate each of the three different
+# content sources to let only one update at a time more quickly.
 
 # Show us commands, stop on errors, and fail on missing vars
 set -eux
