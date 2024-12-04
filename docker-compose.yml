@@ -21,6 +21,21 @@ services:
       - VIRTUAL_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
       - HSTS=off
       - LETSENCRYPT_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
+  www-webhook:
+      image: thecatlady/webhook:2.8.0
+      volumes:
+        - ./www/hooks.json:/etc/webhook/hooks.json:ro
+        - ./www/init_content.sh:/init_content.sh:ro
+        - ./www/content/:/usr/share/nginx/html/
+      ports:
+        - '9000'
+      environment:
+        - VIRTUAL_HOST=webhook.www.${BASE_DOMAIN}
+        - LETSENCRYPT_HOST=webhook.www.${BASE_DOMAIN}
+        #      - GITHUB_TOKEN=${GITHUB_TOKEN}
+        - WEBHOOK_SECRET=${WEBHOOK_SECRET}
+      command: [ "-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload", "-template" ]
+
   static-samples:
     # Consider updating this to support dynamic samples in the future
     build:
