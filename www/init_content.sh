@@ -9,8 +9,8 @@ set -eux
 WORK_DIR=$(mktemp -d)
 
 # Download the latest builds for gwt-site and gwt-site-webapp
-curl -L -o "$WORK_DIR/gwt-site.zip" https://nightly.link/niloc132/gwt-site/workflows/build/github-actions/gwt-site.zip
-curl -L -o "$WORK_DIR/gwt-site-webapp.zip" https://nightly.link/niloc132/gwt-site-webapp/workflows/build/github-actions/gwt-site-webapp.zip
+curl -L -o "$WORK_DIR/gwt-site.zip" https://nightly.link/gwtproject/gwt-site/workflows/build/main/gwt-site.zip
+curl -L -o "$WORK_DIR/gwt-site-webapp.zip" https://nightly.link/gwtproject/gwt-site-webapp/workflows/build/main/gwt-site-webapp.zip
 
 # Unzip the files
 mkdir "$WORK_DIR/www"
