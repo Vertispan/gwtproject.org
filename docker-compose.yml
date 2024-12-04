@@ -13,6 +13,9 @@ services:
         - NGINX_TAG=${NGINX_TAG}
     ports:
       - '80'
+    volumes:
+      - ./www/content:/usr/share/nginx/html/
+      - ./www/init_content.sh:/docker-entrypoint.d/10-gwt-content.sh:ro
     environment:
       - BASE_DOMAIN=${BASE_DOMAIN}
       - VIRTUAL_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
