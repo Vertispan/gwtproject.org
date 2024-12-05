@@ -45,12 +45,12 @@ services:
       - HSTS=off
       - LETSENCRYPT_HOST=plugins.${BASE_DOMAIN}
   gwt-plugin-eclipse-nightly-update-webhook:
-    build:
-      context: webhook
+    image: thecatlady/webhook:2.8.0
     volumes:
       - ./plugins/hooks.json:/etc/webhook/hooks.json:ro
-      - ./plugins/hook-deploy.sh:/hook-deploy.sh:ro
-      - ./plugins/content/eclipse/gwt-eclipse-plugin:/gwt-eclipse-plugin/
+      - ./plugins/scripts:/scripts:ro
+      - ./plugins/content/eclipse/gwt-eclipse-plugin:/plugins/gwt-eclipse-plugin/
+      - ./plugins/content/eclipse/gwt-sdk-plugin:/plugins/gwt-sdk-plugin/
     ports:
       - '9000'
     environment:
