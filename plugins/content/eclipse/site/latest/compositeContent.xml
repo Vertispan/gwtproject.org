@@ -8,6 +8,6 @@
     </properties>
     <children size='2'>
         <child location='https://plugins.gwtproject.org/eclipse/gwt-eclipse-plugin/latest'/>
-        <child location='https://plugins.gwtproject.org/eclipse/gwt-sdk-plugin/latest'/>
+        <child location='https://plugins.gwtproject.org/eclipse/gwt-sdk-plugins/2.12.1'/>
     </children>
 </repository>
