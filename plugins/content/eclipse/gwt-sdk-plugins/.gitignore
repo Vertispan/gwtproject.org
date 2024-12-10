@@ -1,0 +1,3 @@
+# Keep this directory, but don't check in contents when they are added
+*
+!.gitignore
