@@ -14,4 +14,4 @@ curl https://api.github.com/repos/gwt-plugins/gwt-eclipse-plugin/releases \
 # Ask GitHub for all SDK releases, iterate through download urls
 curl https://api.github.com/repos/gwt-plugins/gwt-sdk-plugins/releases \
     | jq '.[].assets[0].browser_download_url' \
-    | xargs -n1 /scripts/deploy-release.sh gwt-sdk-plugin
+    | xargs -n1 /scripts/deploy-release.sh gwt-sdk-plugins

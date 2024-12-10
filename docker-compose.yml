@@ -50,7 +50,7 @@ services:
       - ./plugins/hooks.json:/etc/webhook/hooks.json:ro
       - ./plugins/scripts:/scripts:ro
       - ./plugins/content/eclipse/gwt-eclipse-plugin:/plugins/gwt-eclipse-plugin/
-      - ./plugins/content/eclipse/gwt-sdk-plugin:/plugins/gwt-sdk-plugin/
+      - ./plugins/content/eclipse/gwt-sdk-plugins:/plugins/gwt-sdk-plugins/
     ports:
       - '9000'
     environment:
