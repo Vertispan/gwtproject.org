@@ -42,8 +42,8 @@ services:
       context: static-samples
       args:
         - NGINX_TAG=${NGINX_TAG}
-        - GWT_DOWNLOAD=https://github.com/gwtproject/gwt/releases/download/2.10.0/gwt-2.10.0.zip
-        - GWT_VERSION=2.10.0
+        - GWT_DOWNLOAD=https://github.com/gwtproject/gwt/releases/download/2.12.1/gwt-2.12.1.zip
+        - GWT_VERSION=2.12.1
     ports:
       - '80'
     environment:
