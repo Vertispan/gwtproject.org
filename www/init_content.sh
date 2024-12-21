@@ -7,6 +7,11 @@
 # Show us commands, stop on errors, and fail on missing vars
 set -eux
 
+# Ensure rsync is available, if not, install it with apk
+if ! command -v rsync; then
+  apk add rsync
+fi
+
 # Create a temp dir to do our work in
 WORK_DIR=$(mktemp -d)
 
