@@ -49,8 +49,63 @@
   },
   {{/* Release published webhook - creation of a release will trigger this to copy artifacts */}}
   {
-    "id": "release-published",
-    "execute-command": "/scripts/hook-deploy-release.sh",
+    "id": "eclipse-plugin-release-published",
+    "execute-command": "/scripts/hook-deploy-plugin-release.sh",
+    "command-working-directory": "/",
+    "pass-arguments-to-command":
+    [
+      {
+        "source": "payload",
+        "name": "release.assets.0.browser_download_url"
+      }
+    ],
+    "trigger-rule":
+    {
+      "and":
+      [
+        {
+          "match":
+          {
+            "type": "payload-hmac-sha256",
+            "secret": "{{ getenv "WEBHOOK_SECRET" }}",
+            "parameter":
+            {
+              "source": "header",
+              "name": "X-Hub-Signature-256"
+            }
+          }
+        },
+        {
+          "match":
+          {
+            "type": "value",
+            "value": "released",
+            "parameter":
+            {
+              "source": "payload",
+              "name": "action"
+            }
+          }
+        },
+        {
+          "match":
+          {
+            "type": "value",
+            "value": "success",
+            "parameter":
+            {
+              "source": "payload",
+              "name": "check_suite.conclusion"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {{/* Release published webhook - creation of a release will trigger this to copy artifacts */}}
+  {
+    "id": "eclipse-sdk-release-published",
+    "execute-command": "/scripts/hook-deploy-sdk-release.sh",
     "command-working-directory": "/",
     "pass-arguments-to-command":
     [
