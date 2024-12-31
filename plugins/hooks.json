@@ -86,18 +86,6 @@
               "name": "action"
             }
           }
-        },
-        {
-          "match":
-          {
-            "type": "value",
-            "value": "success",
-            "parameter":
-            {
-              "source": "payload",
-              "name": "check_suite.conclusion"
-            }
-          }
         }
       ]
     }
@@ -139,18 +127,6 @@
             {
               "source": "payload",
               "name": "action"
-            }
-          }
-        },
-        {
-          "match":
-          {
-            "type": "value",
-            "value": "success",
-            "parameter":
-            {
-              "source": "payload",
-              "name": "check_suite.conclusion"
             }
           }
         }

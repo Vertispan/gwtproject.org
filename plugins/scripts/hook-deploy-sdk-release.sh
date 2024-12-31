@@ -9,4 +9,4 @@ set -eux
 
 # Read from args to get the URL we should download (from the webhook payload), and
 # delegate to a script we share with init_release.sh
-/scripts/deploy_release.sh gwt-sdk-plugins "$1"
+/scripts/deploy-release.sh gwt-sdk-plugins "$1"
