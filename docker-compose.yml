@@ -11,7 +11,7 @@ services:
       context: www
       args:
         - NGINX_TAG=${NGINX_TAG}
-    ports:
+    expose:
       - '80'
     volumes:
       - ./www/content:/usr/share/nginx/html/
@@ -21,20 +21,30 @@ services:
       - VIRTUAL_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
       - HSTS=off
       - LETSENCRYPT_HOST=${BASE_DOMAIN},www.${BASE_DOMAIN}
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
   www-webhook:
-      image: thecatlady/webhook:2.8.0
-      volumes:
-        - ./www/hooks.json:/etc/webhook/hooks.json:ro
-        - ./www/init_content.sh:/init_content.sh:ro
-        - ./www/content/:/usr/share/nginx/html/
-      ports:
-        - '9000'
-      environment:
-        - VIRTUAL_HOST=webhook.www.${BASE_DOMAIN}
-        - LETSENCRYPT_HOST=webhook.www.${BASE_DOMAIN}
-        #      - GITHUB_TOKEN=${GITHUB_TOKEN}
-        - WEBHOOK_SECRET=${WEBHOOK_SECRET}
-      command: [ "-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload", "-template" ]
+    image: thecatlady/webhook:2.8.0
+    volumes:
+      - ./www/hooks.json:/etc/webhook/hooks.json:ro
+      - ./www/init_content.sh:/init_content.sh:ro
+      - ./www/content/:/usr/share/nginx/html/
+    expose:
+      - '9000'
+    environment:
+      - VIRTUAL_HOST=webhook.www.${BASE_DOMAIN}
+      - LETSENCRYPT_HOST=webhook.www.${BASE_DOMAIN}
+      #      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET}
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+    command: [ "-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload", "-template" ]
 
   static-samples:
     # Consider updating this to support dynamic samples in the future
@@ -44,16 +54,26 @@ services:
         - NGINX_TAG=${NGINX_TAG}
         - GWT_DOWNLOAD=https://github.com/gwtproject/gwt/releases/download/2.12.1/gwt-2.12.1.zip
         - GWT_VERSION=2.12.1
-    ports:
+    expose:
       - '80'
     environment:
       - VIRTUAL_HOST=samples.${BASE_DOMAIN}
       - HSTS=off
       - LETSENCRYPT_HOST=samples.${BASE_DOMAIN}
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
   plugins:
     image: nginx:${NGINX_TAG}
-    ports:
+    expose:
       - '80'
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
     volumes:
       # Modify the existing default.conf file to allow directory listing for plugin versions
       - ./plugins/default.conf:/etc/nginx/conf.d/default.conf:ro
@@ -69,11 +89,17 @@ services:
       - ./plugins/scripts:/scripts:ro
       - ./plugins/content/eclipse/gwt-eclipse-plugin:/plugins/gwt-eclipse-plugin/
       - ./plugins/content/eclipse/gwt-sdk-plugins:/plugins/gwt-sdk-plugins/
-    ports:
+    expose:
       - '9000'
     environment:
       - VIRTUAL_HOST=webhook.plugins.${BASE_DOMAIN}
       - LETSENCRYPT_HOST=webhook.plugins.${BASE_DOMAIN}
 #      - GITHUB_TOKEN=${GITHUB_TOKEN}
       - WEBHOOK_SECRET=${WEBHOOK_SECRET}
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+
     command: ["-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload", "-template"]
